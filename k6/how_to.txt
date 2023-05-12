@@ -1,0 +1,2 @@
+k6 run --vus 10 --duration 10s --out json=test.json script.js
+k6 run --vus 10 --out json=test.json script.js

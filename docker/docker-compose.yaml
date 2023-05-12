@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+
+  spring-demo:
+    image: szalaigeri/spring-demo:1.0.0
+    restart: on-failure
+    ports:
+      - "8080:8080"
