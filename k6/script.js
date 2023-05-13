@@ -49,12 +49,12 @@ export const soakTest_options = {
 }
 
 export default function () {
-    group('GET', function () {
+    group('GET requests for samples', function () {
         getAllSamples();
         getOneSample();
     });
 
-    group('POST', function () {
+    group('POST requests for samples', function () {
         addOneSample();
     });
 }
