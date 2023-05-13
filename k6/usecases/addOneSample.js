@@ -15,7 +15,7 @@ export function addOneSample() {
   check(res, {
       'is status 200': (r) => r.status === 200,
   }, {
-      my_tag: "I'm a tag for adding sample"
+      my_tag: "I'm a tag for adding one sample"
   });
   console.log(res.body);
   sleep(1);

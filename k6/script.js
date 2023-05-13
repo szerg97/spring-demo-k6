@@ -4,7 +4,7 @@ import { getOneSample } from './usecases/getOneSample.js';
 import { addOneSample } from './usecases/addOneSample.js';
 
 // smoke test options: minimal load as a sanity check
-export const smokeTest_options = {
+export const options = {
     vus: 1,
     duration: '13s',
     thresholds: {

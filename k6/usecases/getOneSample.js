@@ -6,7 +6,7 @@ export function getOneSample() {
   check(res, {
       'is status 200': (r) => r.status === 200,
   }, {
-      my_tag: "I'm a tag for index"
+      my_tag: "I'm a tag for getting one sample by index"
   });
   //console.log(res.body);
   sleep(1);
