@@ -8,6 +8,6 @@ export function getOneSample() {
   }, {
       my_tag: "I'm a tag for getting one sample by index"
   });
-  //console.log(res.body);
+  console.log(res.body);
   sleep(1);
 }
