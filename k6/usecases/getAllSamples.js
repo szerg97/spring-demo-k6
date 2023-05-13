@@ -10,6 +10,5 @@ export function getAllSamples() {
   })){
       fail('Failed to get 200 response code')
   }
-  console.log(res.body);
   sleep(1);
 }
