@@ -5,7 +5,7 @@ import { addOneSample } from './usecases/addOneSample.js';
 
 // smoke test options: minimal load as a sanity check
 export const options = {
-    vus: 1,
+    vus: 2,
     duration: '13s',
     thresholds: {
         http_req_duration: ['p(99)<400']
