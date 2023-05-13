@@ -1,5 +1,8 @@
 import http from 'k6/http';
 import { check, sleep, fail } from 'k6';
+import {environment} from "../environment.js";
+
+const url = environment.url;
 
 export function addOneSample() {
   const data = {
@@ -11,13 +14,14 @@ export function addOneSample() {
       "Content-Type": "application/json"
     }
   }
-  const res = http.post('http://localhost:8080/api/v1/samples', JSON.stringify(data), params);
+  console.log(url);
+  const res = http.post(url, JSON.stringify(data), params);
   if(!check(res, {
       'is status 200': (r) => r.status === 200,
   }, {
       my_tag: "I'm a tag for adding one sample"
   })){
-    fail('Failed to get 200 response code')
+    fail('Failed to get 200 response code on POST')
   }
   console.log(res.body);
   sleep(1);

@@ -1,5 +1,5 @@
 import { group } from 'k6';
-import {getAllSamples} from './usecases/getAllSamples.js';
+import { getAllSamples } from './usecases/getAllSamples.js';
 import { getOneSample } from './usecases/getOneSample.js';
 import { addOneSample } from './usecases/addOneSample.js';
 
