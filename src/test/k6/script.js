@@ -1,7 +1,5 @@
 import { group } from 'k6';
-import { getAllSamples } from './usecases/getAllSamples.js';
-import { getOneSample } from './usecases/getOneSample.js';
-import { addOneSample } from './usecases/addOneSample.js';
+import { getAllSamples } from './usecases/samplesUC.js';
 
 // smoke test options: minimal load as a sanity check
 export const options = {
@@ -49,12 +47,7 @@ export const soakTest_options = {
 }
 
 export default function () {
-    group('GET requests for samples', function () {
+    group('CRUD requests for samples', function () {
         getAllSamples();
-        getOneSample();
-    });
-
-    group('POST requests for samples', function () {
-        addOneSample();
     });
 }
