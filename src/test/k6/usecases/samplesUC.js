@@ -12,7 +12,7 @@ export function getAllSamples() {
         check(res, {
             'is status 200': (r) => r.status === 200,
         }, {
-            my_tag: "I'm a tag for getting all samples"
+            desc: "I'm a tag for getting all samples"
         });
         sleep(1);
     });
@@ -22,7 +22,7 @@ export function getAllSamples() {
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         }, {
-            my_tag: "I'm a tag for getting one sample by index"
+            desc: "I'm a tag for getting one sample by index"
         })){
             fail('Failed to get 200 response code on GET ONE');
         }
@@ -44,7 +44,7 @@ export function getAllSamples() {
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         }, {
-            my_tag: "I'm a tag for adding one sample"
+            desc: "I'm a tag for adding one sample"
         })){
             fail('Failed to get 200 response code on POST')
         }
