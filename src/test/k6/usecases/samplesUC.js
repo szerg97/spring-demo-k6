@@ -8,21 +8,17 @@ const url = environment.url;
 export function getAllSamples() {
     describe('Getting all samples', function () {
         console.log(url);
-        const res = http.get(url);
+        const res = http.get(url, createGetAllParams());
         check(res, {
             'is status 200': (r) => r.status === 200,
-        }, {
-            desc: "I'm a tag for getting all samples"
         });
         sleep(1);
     });
     describe('Getting one sample by index', function () {
         console.log(url);
-        const res = http.get(url + '/index/1');
+        const res = http.get(url + '/index/1', createGetOneParams());
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
-        }, {
-            desc: "I'm a tag for getting one sample by index"
         })){
             fail('Failed to get 200 response code on GET ONE');
         }
@@ -40,15 +36,37 @@ export function getAllSamples() {
             }
         }
         console.log(url);
-        const res = http.post(url, JSON.stringify(data), params);
+        const res = http.post(url, JSON.stringify(data), extendPostParams(params));
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
-        }, {
-            desc: "I'm a tag for adding one sample"
         })){
             fail('Failed to get 200 response code on POST')
         }
         console.log(res.body);
         sleep(1);
     });
+}
+
+export function createGetAllParams(){
+    return {
+        tags: {
+            desc: 'Desc for getting all samples'
+        }
+    };
+}
+
+export function createGetOneParams(){
+    return {
+        tags: {
+            desc: 'Desc for getting one samples'
+        }
+    };
+}
+
+export function extendPostParams(params){
+    const t = params;
+    t.tags = {
+        additionalInfo: 'Add info here'
+    }
+    return t;
 }
