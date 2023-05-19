@@ -1,5 +1,5 @@
 import { group } from 'k6';
-import { getAllSamples } from './usecases/samplesUC.js';
+import { handleSamples } from './usecases/samplesUC.js';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.2/index.js';
 
 // smoke test options: minimal load as a sanity check
@@ -49,12 +49,12 @@ export const soakTest_options = {
 
 export default function () {
     group('CRUD requests for samples', function () {
-        getAllSamples();
+        handleSamples();
     });
 }
 
 export function handleSummary(data) {
-    console.log('summaryzing')
+    console.log('Summarizing data...')
     return {
         'stdout': textSummary(data, { indent: ' ', enableColors: true }), // Show the text summary to stdout...
         'report.json': JSON.stringify(data), // and a JSON with all the details...

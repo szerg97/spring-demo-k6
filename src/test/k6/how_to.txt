@@ -3,3 +3,5 @@ k6 run --vus 10 --out json=test.json script.js
 
 # Smoke Test #
 k6 run script.js
+
+k6 run --out json=results.json script.js

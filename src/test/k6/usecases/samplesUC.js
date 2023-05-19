@@ -11,22 +11,25 @@ const customCounter = new Counter('custom_counter');
 const customGauge = new Gauge('custom_gauge');
 const customRate = new Rate('custom_rate');
 
-export function getAllSamples() {
+export function handleSamples() {
+    const countA = 1;
+    const countB = 2;
+    const countC = 3;
     describe('Getting all samples', function () {
-        console.log(url);
-        const res = http.get(url, createGetAllParams());
+        console.log('GET: ' + url);
+        const res = http.get(url, {info: 'Desc for getting all samples'});
         check(res, {
             'is status 200': (r) => r.status === 200,
         });
 
         //Trend
         console.log('Response time (ms) was ' + String(res.timings.duration));
-        customTrend.add(res.timings.duration);
+        customTrend.add(res.timings.duration, { desc: 'Request timings duration' });
 
         //Counter (sum of all values * each iteration (in case of 5 iterations, (1+2+3)*5))
-        customCounter.add(1);
-        customCounter.add(2);
-        customCounter.add(3);
+        customCounter.add(countA, {isAEven: isEven(countA)});
+        customCounter.add(countB, {isBEven: isEven(countB)});
+        customCounter.add(countC, {isCEven: isEven(countC)});
 
         //Rate 50% pass, 50% fail
         customRate.add(1);
@@ -42,14 +45,19 @@ export function getAllSamples() {
         sleep(1);
     });
     describe('Getting one sample by index', function () {
-        console.log(url);
-        const res = http.get(url + '/index/1', createGetOneParams());
+        console.log('GET: ' + url + '/index/1');
+        const res = http.get(url + '/index/1', {info: 'Desc for getting one sample'});
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         })){
-            fail('Failed to get 200 response code on GET ONE');
+            fail('Failed to get 200 response code on GET ONE, instead status code is: ' + res.status);
         }
         console.log(res.body);
+
+        //Trend
+        console.log('Response time (ms) was ' + String(res.timings.duration));
+        customTrend.add(res.timings.duration, { desc: 'Request timings duration' });
+
         sleep(1);
     });
     describe('Adding one sample', function () {
@@ -62,38 +70,28 @@ export function getAllSamples() {
                 "Content-Type": "application/json"
             }
         }
-        console.log(url);
-        const res = http.post(url, JSON.stringify(data), extendPostParams(params));
+        console.log('POST: ' + url);
+        const res = http.post(url, JSON.stringify(data), tag(params, {info: 'Additional info here'}));
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         })){
-            fail('Failed to get 200 response code on POST')
+            fail('Failed to get 200 response code on POST, instead status code is:' + res.status);
         }
         console.log(res.body);
+
+        //Trend
+        console.log('Response time (ms) was ' + String(res.timings.duration));
+        customTrend.add(res.timings.duration, { desc: 'Request timings duration', status: String(res.status), url: res.url, redirected: String(res.redirected)});
+
         sleep(1);
     });
 }
 
-export function createGetAllParams(){
-    return {
-        tags: {
-            desc: 'Desc for getting all samples'
-        }
-    };
+export function tag(params, tags){
+    params.tags = tags;
+    return params;
 }
 
-export function createGetOneParams(){
-    return {
-        tags: {
-            desc: 'Desc for getting one samples'
-        }
-    };
-}
-
-export function extendPostParams(params){
-    const t = params;
-    t.tags = {
-        additionalInfo: 'Add info here'
-    }
-    return t;
+function isEven(count) {
+    return count % 2 === 0;
 }
