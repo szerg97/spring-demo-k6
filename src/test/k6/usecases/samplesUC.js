@@ -4,7 +4,8 @@ import { check, sleep, fail } from 'k6';
 import { describe } from 'https://jslib.k6.io/expect/0.0.4/index.js';
 import {environment} from "../environment.js";
 
-const url = environment.url;
+const BASE_URL = environment.url;
+const POST_URL = `${BASE_URL}/index/1`
 
 const customTrend = new Trend('custom_duration');
 const customCounter = new Counter('custom_counter');
@@ -16,8 +17,8 @@ export function handleSamples() {
     const countB = 2;
     const countC = 3;
     describe('Getting all samples', function () {
-        console.log('GET: ' + url);
-        const res = http.get(url, {info: 'Desc for getting all samples'});
+        console.log('GET: ' + BASE_URL);
+        const res = http.get(BASE_URL, {info: 'Desc for getting all samples'});
         check(res, {
             'is status 200': (r) => r.status === 200,
         });
@@ -26,8 +27,10 @@ export function handleSamples() {
         console.log('Response time (ms) was ' + String(res.timings.duration));
         customTrend.add(res.timings.duration, { desc: 'Request timings duration' });
 
+        const now = Date.now();
+
         //Counter (sum of all values * each iteration (in case of 5 iterations, (1+2+3)*5))
-        customCounter.add(countA, {isAEven: isEven(countA)});
+        customCounter.add(countA, {isAEven: isEven(countA), now: String(now)});
         customCounter.add(countB, {isBEven: isEven(countB)});
         customCounter.add(countC, {isCEven: isEven(countC)});
 
@@ -45,8 +48,8 @@ export function handleSamples() {
         sleep(1);
     });
     describe('Getting one sample by index', function () {
-        console.log('GET: ' + url + '/index/1');
-        const res = http.get(url + '/index/1', {info: 'Desc for getting one sample'});
+        console.log('GET: ' + POST_URL);
+        const res = http.get(POST_URL, {info: 'Desc for getting one sample'});
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         })){
@@ -70,8 +73,8 @@ export function handleSamples() {
                 "Content-Type": "application/json"
             }
         }
-        console.log('POST: ' + url);
-        const res = http.post(url, JSON.stringify(data), tag(params, {info: 'Additional info here'}));
+        console.log('POST: ' + BASE_URL);
+        const res = http.post(BASE_URL, JSON.stringify(data), tag(params, {info: 'Additional info here'}));
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         })){
