@@ -31,6 +31,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <version>4.0.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -46,6 +58,17 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>4.0.2</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <baseClassForTests>
+                        com.example.springdemo.SpringDemoBaseTest
+                    </baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

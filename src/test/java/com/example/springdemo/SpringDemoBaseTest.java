@@ -2,7 +2,6 @@ package com.example.springdemo;
 
 import com.example.springdemo.controller.SampleController;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
 @AutoConfigureMessageVerifier
-public class BaseTestClass {
+public class SpringDemoBaseTest {
     
     @Autowired
     private SampleController controller;

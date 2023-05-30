@@ -16,9 +16,9 @@ public class SampleService {
     @PostConstruct
     public void seedSamples(){
         samples.addAll(List.of(
-                new Sample(UUID.randomUUID().toString(), 10),
-                new Sample(UUID.randomUUID().toString(), 15),
-                new Sample(UUID.randomUUID().toString(), 30)
+                new Sample("ABCD1234", 10),
+                new Sample("BCDE2345", 20),
+                new Sample("CDEF3456", 30)
         ));
     }
 
