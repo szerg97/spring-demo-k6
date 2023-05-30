@@ -1,6 +1,7 @@
 import { group } from 'k6';
 import { handleSamples } from './usecases/samplesUC.js';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.2/index.js';
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 // smoke test options: minimal load as a sanity check
 export const options = {
@@ -58,5 +59,6 @@ export function handleSummary(data) {
     return {
         'stdout': textSummary(data, { indent: ' ', enableColors: true }), // Show the text summary to stdout...
         'report.json': JSON.stringify(data), // and a JSON with all the details...
+        'summary.html': htmlReport(data),
     };
 }

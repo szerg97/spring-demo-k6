@@ -5,7 +5,7 @@ import { describe } from 'https://jslib.k6.io/expect/0.0.4/index.js';
 import {environment} from "../environment.js";
 
 const BASE_URL = environment.url;
-const POST_URL = `${BASE_URL}/index/1`
+const INDEX_URL = `${BASE_URL}/index/1`
 
 const customTrend = new Trend('custom_duration');
 const customCounter = new Counter('custom_counter');
@@ -48,8 +48,8 @@ export function handleSamples() {
         sleep(1);
     });
     describe('Getting one sample by index', function () {
-        console.log('GET: ' + POST_URL);
-        const res = http.get(POST_URL, {info: 'Desc for getting one sample'});
+        console.log('GET: ' + INDEX_URL);
+        const res = http.get(INDEX_URL, {info: 'Desc for getting one sample'});
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         })){
