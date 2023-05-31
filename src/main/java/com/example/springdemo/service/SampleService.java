@@ -2,7 +2,8 @@ package com.example.springdemo.service;
 
 import com.example.springdemo.model.Sample;
 import com.example.springdemo.repository.SampleRepository;
-import org.springframework.http.ResponseEntity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,9 +13,11 @@ import java.util.UUID;
 @Service
 public class SampleService {
 
+    private final EntityManager em;
     private final SampleRepository sampleRepository;
     
-    public SampleService(SampleRepository sampleRepository) {
+    public SampleService(EntityManagerFactory emf, SampleRepository sampleRepository) {
+        this.em = emf.createEntityManager();
         this.sampleRepository = sampleRepository;
     }
     
