@@ -1,57 +1,48 @@
 package com.example.springdemo.service;
 
 import com.example.springdemo.model.Sample;
-import jakarta.annotation.PostConstruct;
+import com.example.springdemo.repository.SampleRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class SampleService {
 
-    private final List<Sample> samples = new ArrayList<>();
-
-    @PostConstruct
-    public void seedSamples(){
-        samples.addAll(List.of(
-                new Sample("ABCD1234", 10),
-                new Sample("BCDE2345", 20),
-                new Sample("CDEF3456", 30)
-        ));
+    private final SampleRepository sampleRepository;
+    
+    public SampleService(SampleRepository sampleRepository) {
+        this.sampleRepository = sampleRepository;
     }
-
+    
     public List<Sample> getSamples(){
-        return samples;
+        return sampleRepository.findAll();
     }
 
     public Sample getSampleById(String id) {
-        return samples.stream()
-                .filter(s -> s.id().equals(id))
-                .findFirst()
-                .orElseThrow();
+        return sampleRepository.findById(id).orElseThrow();
     }
 
     public Sample getSampleByIndex(int index) {
-        return samples.get(index);
+        return sampleRepository.findAll().get(index);
     }
 
     public Sample addSample(Sample sample) {
-        Sample newSample = new Sample(UUID.randomUUID().toString(), sample.value());
-        samples.add(newSample);
+        Sample newSample = new Sample(UUID.randomUUID().toString(), sample.getValue());
+        sampleRepository.save(newSample);
         return newSample;
     }
 
     public Sample deleteSampleById(String id) {
         Sample sample = getSampleById(id);
-        samples.remove(sample);
+        sampleRepository.delete(sample);
         return sample;
     }
 
     public Sample deleteSampleByIndex(int index) {
         Sample sample = getSampleByIndex(index);
-        samples.remove(index);
+        sampleRepository.delete(sample);
         return sample;
     }
 }
