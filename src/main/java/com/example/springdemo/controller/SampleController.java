@@ -42,8 +42,20 @@ public class SampleController {
         return ResponseEntity.ok(sampleService.deleteSampleById(id));
     }
 
-    @DeleteMapping("/{index}")
+    @DeleteMapping("/index/{index}")
     public ResponseEntity<Sample> deleteSampleByIndex(@PathVariable int index){
         return ResponseEntity.ok(sampleService.deleteSampleByIndex(index));
+    }
+    
+    @PostMapping("/transaction")
+    public ResponseEntity<String> addAllSamples(@RequestBody Sample... samples){
+        sampleService.addAllSamples(samples);
+        return ResponseEntity.ok("Samples were successfully added to database");
+    }
+    
+    @DeleteMapping("/transaction")
+    public ResponseEntity<String> deleteAllSamplesById(@RequestBody String[] ids){
+        sampleService.deleteAllSamplesById(ids);
+        return ResponseEntity.ok("Samples were successfully deleted from database");
     }
 }

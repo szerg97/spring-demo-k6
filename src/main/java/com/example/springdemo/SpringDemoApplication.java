@@ -24,11 +24,13 @@ public class SpringDemoApplication {
     
     @PostConstruct
     public void seed(){
-        final List<Sample> samples = new ArrayList<>(List.of(
-                new Sample("ABCD1234", 10),
-                new Sample("BCDE2345", 20),
-                new Sample("CDEF3456", 30)
-        ));
-        samples.forEach(sampleService::addSample);
+        if (sampleService.isDatabaseEmpty()) {
+            final List<Sample> samples = new ArrayList<>(List.of(
+                    new Sample("ABCD1234", 10, "HUF"),
+                    new Sample("BCDE2345", 20, "EUR"),
+                    new Sample("CDEF3456", 30, "GBP")
+            ));
+            samples.forEach(sampleService::addSample);
+        }
     }
 }
