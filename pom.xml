@@ -15,6 +15,8 @@
     <description>spring-demo</description>
     <properties>
         <java.version>20</java.version>
+        <spring-cloud-contract.version>4.0.2</spring-cloud-contract.version>
+        <version.apache.groovy>4.0.12</version.apache.groovy>
     </properties>
     <dependencies>
         <dependency>
@@ -41,7 +43,13 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-verifier</artifactId>
-            <version>4.0.1</version>
+            <version>${spring-cloud-contract.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${version.apache.groovy}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -63,7 +71,7 @@
             <plugin>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-                <version>4.0.2</version>
+                <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <baseClassForTests>
