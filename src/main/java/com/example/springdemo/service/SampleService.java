@@ -12,12 +12,9 @@ import java.util.UUID;
 
 @Service
 public class SampleService {
-
-    private final EntityManager em;
     private final SampleRepository sampleRepository;
     
-    public SampleService(EntityManagerFactory emf, SampleRepository sampleRepository) {
-        this.em = emf.createEntityManager();
+    public SampleService(SampleRepository sampleRepository) {
         this.sampleRepository = sampleRepository;
     }
     

@@ -5,7 +5,7 @@ spring:
   application:
     name: spring-demo
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/sample_db}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5433/sample_db}
     username: "postgres"
     password: "postgres"
     driver-class-name: org.postgresql.Driver
@@ -15,4 +15,4 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
