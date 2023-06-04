@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class BookingService {
@@ -47,7 +49,8 @@ public class BookingService {
         );
         PaymentInfo paymentInfoSaved = paymentInfoRepository.saveAndFlush(paymentInfo);
         return new BookingResponse(
-                validationStatus.name(),
+                travelInfoSaved.getId(),
+                travelInfoSaved.getName(),
                 travelInfoSaved.getEmail(),
                 travelInfoSaved.getDeparture(),
                 travelInfo.getStart(),
@@ -55,6 +58,42 @@ public class BookingService {
                 travelInfoSaved.getDestination(),
                 paymentInfoSaved.getTotalAmount(),
                 paymentInfoSaved.getTimestamp()
+        );
+    }
+
+    public List<BookingResponse> getBookings() {
+        final List<BookingResponse> bookings = new ArrayList<>();
+        List<TravelInfo> travels = travelInfoRepository.findAll();
+        travels.forEach(t -> {
+            PaymentInfo p = paymentInfoRepository.findByTravelInfoId(t.getId()).orElseThrow();
+            bookings.add(new BookingResponse(
+                    t.getId(),
+                    t.getName(),
+                    t.getEmail(),
+                    t.getDeparture(),
+                    t.getStart(),
+                    t.getArrival(),
+                    t.getDestination(),
+                    p.getTotalAmount(),
+                    p.getTimestamp()
+            ));
+        });
+        return bookings;
+    }
+
+    public BookingResponse getBookingByTravelInfoId(String travelInfoId) {
+        TravelInfo travelInfo = travelInfoRepository.findById(travelInfoId).orElseThrow();
+        PaymentInfo paymentInfo = paymentInfoRepository.findByTravelInfoId(travelInfoId).orElseThrow();
+        return new BookingResponse(
+                travelInfo.getId(),
+                travelInfo.getName(),
+                travelInfo.getEmail(),
+                travelInfo.getDeparture(),
+                travelInfo.getStart(),
+                travelInfo.getArrival(),
+                travelInfo.getDestination(),
+                paymentInfo.getTotalAmount(),
+                paymentInfo.getTimestamp()
         );
     }
 }

@@ -5,7 +5,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public record BookingResponse(
-        String status,
+        String travelInfoId,
+        String name,
         String email,
         Date departure,
         String from,

@@ -15,8 +15,7 @@ Contract.make {
     response {
         status 200
         headers {
-            header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            contentType: applicationJson()
+            contentType applicationJson()
         }
         body([
                     [

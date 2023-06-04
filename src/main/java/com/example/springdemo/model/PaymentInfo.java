@@ -22,14 +22,14 @@ public class PaymentInfo {
     @GeneratedValue
     @UuidGenerator
     private String id;
-    private String customerId;
+    private String travelInfoId;
     private String account;
     private BigDecimal totalAmount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
-    public PaymentInfo(String customerId, String account, BigDecimal totalAmount) {
-        this.customerId = customerId;
+    public PaymentInfo(String travelInfoId, String account, BigDecimal totalAmount) {
+        this.travelInfoId = travelInfoId;
         this.account = account;
         this.totalAmount = totalAmount;
     }
