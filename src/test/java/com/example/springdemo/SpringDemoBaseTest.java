@@ -92,6 +92,8 @@ public class SpringDemoBaseTest {
 
         when(bookingService.getBookings())
                 .thenReturn(responses);
+        when(bookingService.getBookingByTravelInfoId("travel-info-1"))
+                .thenReturn(responses.get(0));
     }
 
     private List<BookingResponse> generateBookingResponses(){

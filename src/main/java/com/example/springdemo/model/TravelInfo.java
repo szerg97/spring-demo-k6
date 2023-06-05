@@ -40,14 +40,4 @@ public class TravelInfo {
         this.departure = departure;
         this.arrival = arrival;
     }
-
-    public TravelInfo(String id, String name, String email, String start, String destination, LocalDate departure, LocalDate arrival) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.start = start;
-        this.destination = destination;
-        this.departure = departure;
-        this.arrival = arrival;
-    }
 }
