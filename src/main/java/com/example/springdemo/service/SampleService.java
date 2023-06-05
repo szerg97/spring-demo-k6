@@ -2,8 +2,6 @@ package com.example.springdemo.service;
 
 import com.example.springdemo.model.Sample;
 import com.example.springdemo.repository.SampleRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +36,7 @@ public class SampleService {
     }
     
     @Transactional
-    public void addAllSamples(Sample... samples) {
+    public void addSamples(Sample... samples) {
         for (Sample sample : samples) {
             Sample newSample = new Sample(UUID.randomUUID().toString(), sample.getValue(), sample.getCurrency());
             sampleRepository.save(newSample);
@@ -52,7 +50,7 @@ public class SampleService {
     }
     
     @Transactional
-    public void deleteAllSamplesById(String... ids) {
+    public void deleteSamplesById(String... ids) {
         for (String id : ids) {
             Sample sample = getSampleById(id);
             sampleRepository.delete(sample);

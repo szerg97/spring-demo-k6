@@ -48,14 +48,14 @@ public class SampleController {
     }
     
     @PostMapping("/transaction")
-    public ResponseEntity<String> addAllSamples(@RequestBody Sample... samples){
-        sampleService.addAllSamples(samples);
+    public ResponseEntity<String> addSamples(@RequestBody Sample... samples){
+        sampleService.addSamples(samples);
         return ResponseEntity.ok("Samples were successfully added to database");
     }
     
     @DeleteMapping("/transaction")
-    public ResponseEntity<String> deleteAllSamplesById(@RequestBody String[] ids){
-        sampleService.deleteAllSamplesById(ids);
+    public ResponseEntity<String> deleteSamplesById(@RequestBody String[] ids){
+        sampleService.deleteSamplesById(ids);
         return ResponseEntity.ok("Samples were successfully deleted from database");
     }
 }
