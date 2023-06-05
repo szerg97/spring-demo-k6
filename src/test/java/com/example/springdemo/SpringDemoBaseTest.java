@@ -3,6 +3,7 @@ package com.example.springdemo;
 import com.example.springdemo.controller.BookingController;
 import com.example.springdemo.controller.SampleController;
 import com.example.springdemo.controller.TestController;
+import com.example.springdemo.controller.dto.BookingRequest;
 import com.example.springdemo.controller.dto.BookingResponse;
 import com.example.springdemo.model.Sample;
 import com.example.springdemo.service.BookingService;
@@ -27,6 +28,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -94,6 +96,21 @@ public class SpringDemoBaseTest {
                 .thenReturn(responses);
         when(bookingService.getBookingByTravelInfoId("travel-info-1"))
                 .thenReturn(responses.get(0));
+        when(bookingService.book(generateBookingRequest()))
+                .thenReturn(responses.get(0));
+    }
+
+    private BookingRequest generateBookingRequest(){
+        return new BookingRequest(
+                "Alex",
+                "alex@mail.com",
+                LocalDate.of(2023,1,1),
+                "Budapest",
+                LocalDate.of(2023,1,1),
+                "Paris",
+                "Account 1",
+                new BigDecimal("100.000")
+        );
     }
 
     private List<BookingResponse> generateBookingResponses(){

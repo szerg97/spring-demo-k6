@@ -9,16 +9,19 @@ Contract.make {
 
     request {
         url("/api/v1/booking")
+        headers {
+            contentType applicationJson()
+        }
         method POST()
         body([
                 "name": "Alex",
                 "email": "alex@mail.com",
-                "departure": "2023-06-21",
+                "departure": [2023, 1, 1],
                 "start": "Budapest",
-                "arrival": "2023-06-22",
-                "destination": "London",
+                "arrival": [2023, 1, 1],
+                "destination": "Paris",
                 "account": "Account 1",
-                "amount": 500.0
+                "amount": 100.000
         ])
     }
 
@@ -28,15 +31,15 @@ Contract.make {
             contentType applicationJson()
         }
         body([
-                "travelInfoId": "075efa8e-d842-40b6-9edd-a8fc5bdc7bed",
+                "travelInfoId": "travel-info-1",
                 "name": "Alex",
                 "email": "alex@mail.com",
-                "departure": "2023-06-21T00:00:00.000+00:00",
+                "departure": [2023, 1, 1],
                 "from": "Budapest",
-                "arrival": "2023-06-22T00:00:00.000+00:00",
-                "to": "London",
-                "totalAmount": 510.000,
-                "dateOfPayment": "2023-06-04T13:31:01.607+00:00"
+                "arrival": [2023, 1, 1],
+                "to": "Paris",
+                "totalAmount": 102.000,
+                "dateOfPayment": 1672527600000
         ])
     }
 }
