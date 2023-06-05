@@ -39,18 +39,18 @@ public class SpringDemoBaseTest {
     }
 
     private void mockTests(){
-        List<TestController.Test> tests = new ArrayList<>();
-        tests.add(new TestController.Test("test-1", 500));
-        tests.add(new TestController.Test("test-2", 250));
-        tests.add(new TestController.Test("test-3", 125));
+        List<TestController.Test> testsBeforeAdd = new ArrayList<>();
+        testsBeforeAdd.add(new TestController.Test("test-1", 500));
+        testsBeforeAdd.add(new TestController.Test("test-2", 250));
+        testsBeforeAdd.add(new TestController.Test("test-3", 125));
 
-        List<TestController.Test> tests2 = new ArrayList<>(tests);
+        List<TestController.Test> testsAfterAdd = new ArrayList<>(testsBeforeAdd);
         TestController.Test testToAdd = new TestController.Test("test-4", 62);
-        tests2.add(testToAdd);
+        testsAfterAdd.add(testToAdd);
 
         when(testService.findAllTests())
-                .thenReturn(tests);
+                .thenReturn(testsBeforeAdd);
         when(testService.addTest(testToAdd))
-                .thenReturn(tests2);
+                .thenReturn(testsAfterAdd);
     }
 }
