@@ -9,8 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.Date;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -26,14 +27,22 @@ public class TravelInfo {
     private String email;
     private String start;
     private String destination;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date departure;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date arrival;
+    private LocalDate departure;
+    private LocalDate arrival;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
-    public TravelInfo(String name, String email, String start, String destination, Date departure, Date arrival) {
+    public TravelInfo(String name, String email, String start, String destination, LocalDate departure, LocalDate arrival) {
+        this.name = name;
+        this.email = email;
+        this.start = start;
+        this.destination = destination;
+        this.departure = departure;
+        this.arrival = arrival;
+    }
+
+    public TravelInfo(String id, String name, String email, String start, String destination, LocalDate departure, LocalDate arrival) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.start = start;

@@ -1,14 +1,14 @@
 package com.example.springdemo.controller.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 public record BookingRequest(
         String name,
         String email,
-        Date departure,
+        LocalDate departure,
         String start,
-        Date arrival,
+        LocalDate arrival,
         String destination,
         String account,
         BigDecimal amount
