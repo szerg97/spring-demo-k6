@@ -1,6 +1,9 @@
 package com.example.springdemo;
 
+import com.example.springdemo.controller.SampleController;
 import com.example.springdemo.controller.TestController;
+import com.example.springdemo.model.Sample;
+import com.example.springdemo.service.SampleService;
 import com.example.springdemo.service.TestService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,15 +30,19 @@ public class SpringDemoBaseTest {
     
     @InjectMocks
     private TestController testController;
-
+    @InjectMocks
+    private SampleController sampleController;
     @Mock
     private TestService testService;
-    
+    @Mock
+    private SampleService sampleService;
+
     @BeforeEach
     public void setup(){
-        StandaloneMockMvcBuilder builder = MockMvcBuilders.standaloneSetup(testController);
+        StandaloneMockMvcBuilder builder = MockMvcBuilders.standaloneSetup(testController, sampleController);
         RestAssuredMockMvc.standaloneSetup(builder);
         mockTests();
+        mockSamples();
     }
 
     private void mockTests(){
@@ -52,5 +59,19 @@ public class SpringDemoBaseTest {
                 .thenReturn(testsBeforeAdd);
         when(testService.addTest(testToAdd))
                 .thenReturn(testsAfterAdd);
+    }
+
+    private void mockSamples(){
+        List<Sample> samples = new ArrayList<>();
+        samples.add(new Sample("sample-1", 15000, "HUF"));
+        samples.add(new Sample("sample-2", 20000, "EUR"));
+        samples.add(new Sample("sample-3", 6000, "EUR"));
+
+        Sample newSample = new Sample("sample-4", 10000, "USD");
+
+        when(sampleService.getSamples())
+                .thenReturn(samples);
+        when(sampleService.addSample(newSample))
+                .thenReturn(newSample);
     }
 }

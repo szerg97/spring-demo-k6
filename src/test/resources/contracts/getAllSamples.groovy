@@ -1,8 +1,6 @@
 package contracts
 
 import org.springframework.cloud.contract.spec.Contract
-import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType
 
 Contract.make {
     description("it should return all samples")
@@ -19,14 +17,17 @@ Contract.make {
         }
         body([
                     [
-                        "id": "ABCD1234",
-                        "value": 10
+                            "id": "sample-1",
+                            "value": 15000,
+                            "currency": "HUF"
                     ], [
-                        "id":"BCDE2345",
-                        "value": 20
+                            "id":"sample-2",
+                            "value": 20000,
+                            "currency": "EUR"
                     ], [
-                        "id":"CDEF3456",
-                        "value": 30
+                            "id":"sample-3",
+                            "value": 6000,
+                            "currency": "EUR"
                     ]
         ])
     }
