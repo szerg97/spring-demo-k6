@@ -22,13 +22,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -94,7 +93,7 @@ public class SpringDemoBaseTest {
 
         when(bookingService.getBookings())
                 .thenReturn(responses);
-        when(bookingService.getBookingByTravelInfoId("travel-info-1"))
+        when(bookingService.getBookingByTravelInfoId(eq("travel-info-1")))
                 .thenReturn(responses.get(0));
         when(bookingService.book(generateBookingRequest()))
                 .thenReturn(responses.get(0));
