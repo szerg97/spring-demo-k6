@@ -18,6 +18,8 @@ services:
     command: ["run", "/scripts/script.js"]
     networks:
       - k6
+    environment:
+      - HOST=demo
 
 networks:
   k6:
