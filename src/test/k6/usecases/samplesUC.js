@@ -4,8 +4,8 @@ import { check, sleep, fail } from 'k6';
 import { describe } from 'https://jslib.k6.io/expect/0.0.4/index.js';
 import {environment} from "../environment.js";
 
-const BASE_URL = environment.url;
-const INDEX_URL = `${BASE_URL}/index/1`
+const SAMPLES_URL = environment.BASE_URL;
+const INDEX_URL = `${SAMPLES_URL}/index/1`
 
 const customTrend = new Trend('custom_duration');
 const customCounter = new Counter('custom_counter');
@@ -17,8 +17,8 @@ export function handleSamples() {
     const countB = 2;
     const countC = 3;
     describe('Getting all samples', function () {
-        console.log('GET: ' + BASE_URL);
-        const res = http.get(BASE_URL, {info: 'Desc for getting all samples'});
+        console.log('GET: ' + SAMPLES_URL);
+        const res = http.get(SAMPLES_URL, {info: 'Desc for getting all samples'});
         check(res, {
             'is status 200': (r) => r.status === 200,
         });
@@ -73,8 +73,8 @@ export function handleSamples() {
                 "Content-Type": "application/json"
             }
         }
-        console.log('POST: ' + BASE_URL);
-        const res = http.post(BASE_URL, JSON.stringify(data), tag(params, {info: 'Additional info here'}));
+        console.log('POST: ' + SAMPLES_URL);
+        const res = http.post(SAMPLES_URL, JSON.stringify(data), tag(params, {info: 'Additional info here'}));
         if(!check(res, {
             'is status 200': (r) => r.status === 200,
         })){
