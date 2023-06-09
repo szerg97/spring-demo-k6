@@ -7,7 +7,7 @@ spec:
     app: spring-demo
   ports:
     - protocol: TCP
-      port: 80
+      port: 8080
       targetPort: 8080
   type: ClusterIP
 ---
@@ -31,5 +31,5 @@ spec:
       containers:
         - name: spring-demo
           image: szalaigeri/spring-demo:1.0.0
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
       restartPolicy: Always
