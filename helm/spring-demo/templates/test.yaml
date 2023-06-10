@@ -19,11 +19,4 @@ spec:
         - name: test
           image: nginx:alpine
           imagePullPolicy: Always
-          volumeMounts:
-            - mountPath: /scripts/
-              name: test-volume
-      volumes:
-        - name: test-volume
-          hostPath:
-            path: /mnt/c/Users/eegsraz/IdeaProjects/spring-demo-k6/helm/
       restartPolicy: Always
