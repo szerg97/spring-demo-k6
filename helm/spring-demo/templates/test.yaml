@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+  labels:
+    app: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      name: test
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: test
+          image: nginx:alpine
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /scripts/
+              name: test-volume
+      volumes:
+        - name: test-volume
+          hostPath:
+            path: /mnt/c/Users/eegsraz/IdeaProjects/spring-demo-k6/helm/
+      restartPolicy: Always
