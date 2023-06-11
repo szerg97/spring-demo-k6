@@ -23,13 +23,20 @@ spec:
             - name: HOST
               value: spring-demo
           volumeMounts:
-            - mountPath: /scripts/
+            - mountPath: /scripts
               name: test-volume
           command: [ "k6" ]
           args: [ "run", "/scripts/script.js" ]
       volumes:
         - name: test-volume
-          hostPath:
-            path: /mnt/c/Users/eegsraz/IdeaProjects/spring-demo-k6/src/test/k6/
+          configMap:
+            name: script-configmap
+            items:
+              - key: 'environment'
+                path: 'environment.js'
+              - key: 'script'
+                path: 'script.js'
+              - key: 'samplesUC'
+                path: 'usecases/samplesUC.js'
       restartPolicy: Always
 
