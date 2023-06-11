@@ -1,0 +1,13 @@
+springDemo:
+  name: spring-demo
+  service:
+    name: spring-demo-internal
+    port: 8080
+
+testsuite:
+  name: k6-testsuite
+  service:
+    name: k6-testsuite-internal
+    port: 6565
+  configmap:
+    name: script-configmap

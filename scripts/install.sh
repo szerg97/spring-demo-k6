@@ -14,8 +14,9 @@ function config(){
 }
 
 function deploy(){
-  kubectl apply -f helm/spring-demo/templates/spring-demo.yaml -n test
-  kubectl apply -f helm/spring-demo/templates/k6.yaml -n test
+  helm install test helm/spring-demo -f helm/spring-demo/values.yaml -n test
+  #kubectl apply -f helm/spring-demo/templates/spring-demo.yaml -n test
+  #kubectl apply -f helm/spring-demo/templates/k6.yaml -n test
 }
 
 cleanup

@@ -1,35 +1,35 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-demo
+  name: {{ .Values.springDemo.service.name }}
 spec:
   selector:
-    app: spring-demo
+    app: {{ .Values.springDemo.name }}
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: {{ .Values.springDemo.service.port }}
+      targetPort: {{ .Values.springDemo.service.port }}
   type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-demo
+  name: {{ .Values.springDemo.name }}
   labels:
-    app: spring-demo
+    app: {{ .Values.springDemo.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-demo
+      app: {{ .Values.springDemo.name }}
   template:
     metadata:
-      name: spring-demo
+      name: {{ .Values.springDemo.name }}
       labels:
-        app: spring-demo
+        app: {{ .Values.springDemo.name }}
     spec:
       containers:
-        - name: spring-demo
+        - name: {{ .Values.springDemo.name }}
           image: szalaigeri/spring-demo:1.0.0
           imagePullPolicy: Always
       restartPolicy: Always

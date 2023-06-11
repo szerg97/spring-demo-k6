@@ -4,7 +4,7 @@ import { check, sleep, fail } from 'k6';
 import { describe } from 'https://jslib.k6.io/expect/0.0.4/index.js';
 import {environment} from "../environment.js";
 
-const SAMPLES_URL = environment.BASE_URL;
+const SAMPLES_URL = `${environment.BASE_URL}/samples`;
 const INDEX_URL = `${SAMPLES_URL}/index/1`
 
 const customTrend = new Trend('custom_duration');
